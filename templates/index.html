@@ -14,8 +14,18 @@
   <body>
     <div id="title">
       <h1>Welcome to the code club data Collector.</h1>
+      <form action="/" method="get">
+        <p>
+          Type your name here to see your data 
+          <input required name="name" id="search-text" type="text">
+        </p>
+        <p>
+          Page number 
+          <input required name="page" type="text" id='page' min="1" step="1" type="number" >
+        </p> 
+        <button type='submit' id="search-button">GO!</button>
+      </form>
       <p>You can view the source code <a href="https://github.com/Bilco-Industries/CodeClubCollector">here</a></p>
-      <p>Type your name here to see your data <input id="search-text" type="text"><button id="search-button">GO!</button></p>
     </div>
     <div id="content">
       {% if records %}

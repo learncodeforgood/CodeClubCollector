@@ -14,8 +14,12 @@ def index():
     records = None
     try:
         user = request.args.get('name')
+        page = request.args.get('page')
+        if not user:
+            return abort(400)
+
         if user:
-            records = db.get_data_for_user(user)
+            records = db.get_data_for_user(user, page)
     except:
         pass
     logger.debug(records)

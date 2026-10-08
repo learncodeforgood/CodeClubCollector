@@ -78,7 +78,7 @@ class DB:
         except Exception as e: 
             logger.error(f"Failed to set up the database {e}")
 
-    def get_data_for_user(self, user):
+    def get_data_for_user(self, user: str, page: int):
 
         # This query asks the database to get 100 records 
         # Each record will contain timestamp, lux, pressure, temperature and humidity 
@@ -97,9 +97,12 @@ class DB:
 
         -- the maximum amount of records to get
         LIMIT 50
+
+        -- Skip the records we have already seen by multiplying the limit with the page number
+        OFFSET 50 * ?
         """
         
-        return self._execute(get_data_query, [(user)])
+        return self._execute(get_data_query, [(user), page])
 
     def write_data_for_user(self, user, lux, pressure, temp, humidity):
         try:

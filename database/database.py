@@ -79,6 +79,8 @@ class DB:
             logger.error(f"Failed to set up the database {e}")
 
     def get_data_for_user(self, user: str, page: int):
+        if page > 0:
+            page -= 1
 
         # This query asks the database to get 100 records 
         # Each record will contain timestamp, lux, pressure, temperature and humidity 
@@ -102,7 +104,7 @@ class DB:
         OFFSET 50 * ?
         """
         
-        return self._execute(get_data_query, [(user), page - 1])
+        return self._execute(get_data_query, [(user), page])
 
     def write_data_for_user(self, user, lux, pressure, temp, humidity):
         try:

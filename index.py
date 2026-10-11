@@ -16,14 +16,16 @@ def index():
         user = request.args.get('name')
         page = request.args.get('page')
 
-        if page < 1:
-            page = 1
+        try:
+            page = int(page)
+        except:
+            page = 0
 
         if not user:
             return abort(400)
-
-        if user:
-            records = db.get_data_for_user(user, page)
+        
+        records = db.get_data_for_user(user, page)
+        
     except:
         pass
     logger.debug(records)

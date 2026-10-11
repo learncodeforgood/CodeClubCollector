@@ -102,7 +102,7 @@ class DB:
         OFFSET 50 * ?
         """
         
-        return self._execute(get_data_query, [(user), page])
+        return self._execute(get_data_query, [(user), page - 1])
 
     def write_data_for_user(self, user, lux, pressure, temp, humidity):
         try:

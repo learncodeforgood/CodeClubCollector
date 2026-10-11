@@ -15,8 +15,8 @@ def index():
     try:
         user = request.args.get('name')
         page = request.args.get('page')
-        
-        if (page < 1)
+
+        if page < 1:
             page = 1
 
         if not user:

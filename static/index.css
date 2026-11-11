@@ -30,6 +30,7 @@ body {
     height: 5vh;
 }
 
+/* This makes the table striped  */
 #data-table tr:nth-child(even) { background-color: black; }
 
 a {
@@ -39,4 +40,10 @@ a {
 /* Apply styling to all elements with class="code" */
 .code {
     color: green;
+}
+
+.error {
+    color: red;
+    width: 100%;
+    text-align: center;
 }

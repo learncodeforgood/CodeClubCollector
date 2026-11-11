@@ -16,7 +16,9 @@ class DB:
             return sqlite3.connect(DATABASE_NAME)
         except Exception as e:
             logger.error(f"Failed to connect to SQlite: {e}")
-            
+
+    # This is a helper function so we don't have to write the same code over and over again
+    # You shouldn't need to make any changes to this function
     def _execute(self, command, parameters = None): 
         cursor: sqlite3.Cursor = None
         connection: sqlite3.Connection = None
@@ -53,6 +55,7 @@ class DB:
             return data
             
     # This function will create the table in the database if it does not already exist
+    # This will only be ran once at startup, you can safely ignoore this function
     def _try_create_tables(self):
         try:
             create_table_query = """
@@ -82,7 +85,7 @@ class DB:
         if page > 0:
             page -= 1
 
-        # This query asks the database to get 100 records 
+        # This query asks the database to get 50 records 
         # Each record will contain timestamp, lux, pressure, temperature and humidity 
         get_data_query = """
         -- the columns we want to get
@@ -130,3 +133,8 @@ class DB:
         except Exception as e:
             logger.error(f"Failed to insert data for {user}: {e}")
 
+    # This is for you to complete, return the average data for the user and put it onto the page somewhere
+    # Use the get_data_for_user function as a reference for how to write this function
+    # You should have most of the SQL already written from last week
+    def get_average_data_for_user(self, name: str):
+        return None;

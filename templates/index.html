@@ -26,6 +26,19 @@
         <button type='submit' id="search-button">GO!</button>
       </form>
       <p>You can view the source code <a href="https://github.com/Bilco-Industries/CodeClubCollector">here</a></p>
+
+      <!-- This is where we render the averages, if we have them -->
+      {% if averages %}
+        <p>Average data for {{ name }}: </p>
+        <p>Lux: {{ averages['avg_lux'] }}</p>
+        <p>Pressure: {{ averages['avg_pressure'] }}</p>
+        <p>Temperature: {{ averages['avg_temperature'] }}</p>
+        <p>Humidity: {{ averages['avg_humidity'] }}</p>
+      {% else %}
+        <p class="error">
+          No average data found, have you implemented it yet?
+        </p>
+      {% endif %}
     </div>
     <div id="content">
       {% if records %}
@@ -51,7 +64,7 @@
           </tbody>
         </table>
       {% else %}
-      <p>No data found, enter your name above to see your data</p>
+      <p class="error" >No data found, enter your name above to see your data</p>
       {% endif %}
     </div>
   </body>

@@ -2,7 +2,7 @@ from datetime import datetime
 # This file contains fuinctions that are useful for debugging
 # The different functions are disabled based on the variables set below
 
-INFO = False
+INFO = True
 WARN = True
 DEBUG = False
 ERROR = True

@@ -40,6 +40,49 @@
         </p>
       {% endif %}
     </div>
+
+    <!-- Chart for averages for the user -->
+    {% set chart_items = [
+      ('Lux', averages['avg_lux']),
+      ('Pressure', averages['avg_pressure']),
+      ('Temperature', averages['avg_temperature']),
+      ('Humidity', averages['avg_humidity'])
+    ] if averages else [] %}
+    {% set numeric_items = chart_items | selectattr(1, 'number') | list %}
+    {% if numeric_items %}
+      {% set max_value = numeric_items | map(attribute=1) | max %}
+      <section id="chart" aria-label="Average sensor readings chart">
+        <h2>Average sensor readings for {{ name }}</h2>
+        {% for label, value in numeric_items %}
+          <div class="chart-row">
+            <span class="chart-label">{{ label }}</span>
+            <div class="chart-track">
+              <div class="chart-bar" style="width: {{ (value / max_value * 100 if max_value > 0 else 0) | round(2) }}%"></div>
+            </div>
+            <span class="chart-value">{{ value }}</span>
+          </div>
+        {% endfor %}
+      </section>
+    {% endif %}
+
+    <!-- Chart for temperature data -->
+    {% if temperatures %}
+      <section id="temperature-chart" aria-label="Average temperature readings chart">
+        <h2>Average temperature readings</h2>
+        {% set max_temp = temperatures | map(attribute=1) | max %}
+        {% for label, value in temperatures %}
+          <div class="chart-row">
+            <span class="chart-label">{{ label }}</span>
+            <div class="chart-track">
+              <div class="chart-bar" style="width: {{ (value / max_temp * 100 if max_temp > 0 else 0) | round(2) }}%"></div>
+            </div>
+            <span class="chart-value">{{ value }}</span>
+          </div>
+        {% endfor %}
+      </section>
+    {% endif %}
+
+    <!-- This is where we render the table of records, if we have them -->
     <div id="content">
       {% if records %}
         <!-- If we have loaded data, put it into a table here -->

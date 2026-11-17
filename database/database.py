@@ -137,4 +137,41 @@ class DB:
     # Use the get_data_for_user function as a reference for how to write this function
     # You should have most of the SQL already written from last week
     def get_average_data_for_user(self, name: str):
-        return None;
+        logger.debug(f"Getting average data for user {name}")
+        get_data_query = """
+                -- the columns we want to get
+                SELECT round(avg(lux), 2) as avg_lux, \
+                    round(avg(pressure), 2) as avg_pressure, \
+                    round(avg(temperature), 2) as avg_temperature, \
+                    round(avg(humidity), 2) as avg_humidity
+        
+                -- the table we want to get it from 
+                FROM environment_data 
+        
+                -- the filters we want to apply
+                WHERE user = ?
+                """
+        averages = self._execute(get_data_query, [(name)])[0]
+        averages_dict = {
+            'avg_lux': averages[0],
+            'avg_pressure': averages[1],
+            'avg_temperature': averages[2],
+            'avg_humidity': averages[3]
+        }
+        print(f"Averages for user {name}: {averages_dict}")
+        logger.debug(f"Averages for user {name}: {averages_dict}")
+        return averages_dict 
+
+    def get_average_data_for_temperature(self):
+        logger.debug(f"Getting average data for temperature for all users")
+        get_data_query = """
+                SELECT user, round(avg(temperature), 2) as avg_temperature
+                FROM environment_data
+                WHERE user in ('Jake', 'billy', 'doug', 'nathan', 'sebbletest5', 'stacey')
+                AND temperature IS NOT NULL
+                GROUP BY user
+                ORDER BY user
+                """
+        temperatures = self._execute(get_data_query)
+        logger.debug(f"Average temperature for each user: {temperatures}")
+        return temperatures

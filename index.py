@@ -13,7 +13,7 @@ db: database.DB = database.DB()
 def index():
     records = None
     averages = None
-
+    temperatures = None
     try:
         # Get the user and page number from the query parameters
         user = request.args.get('name')
@@ -32,6 +32,8 @@ def index():
 
         # This function hasn't been implemented yet it should return the average lux, pressure, temperature and humidity for the user
         averages = db.get_average_data_for_user(user)
+
+        temperatures = db.get_average_data_for_temperature()
         
     except Exception as e:
         logger.error("Failed to get data for user: " + str(e))
@@ -47,7 +49,8 @@ def index():
         'index.html',
         name=user,
         records=records,
-        averages=averages
+        averages=averages,
+        temperatures=temperatures
     )
 
 # configure an endpoint to accept data from other devices

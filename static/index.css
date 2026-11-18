@@ -1,6 +1,6 @@
 /* Apply styling to the <body> element */
 body {
-    background-color: #090619; /* This a hex code for the background colour of the page */
+    background-color: black; /* This a hex code for the background colour of the page */
     color: white;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -10,6 +10,59 @@ body {
     width: 100%;
     justify-content: center;
     text-align: center;
+}
+
+#chart {
+    max-width: 760px;
+    width: calc(100% - 2rem);
+    margin: 2rem auto;
+}
+
+#chart h2 {
+    text-align: center;
+}
+
+.chart-row {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr) 100px;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 0;
+}
+
+.chart-label,
+.chart-value {
+    font-size: 0.9rem;
+}
+
+.chart-value {
+    text-align: right;
+}
+
+.chart-track {
+    height: 24px;
+    overflow: hidden;
+    background-color: #e5e7eb;
+    border-radius: 4px;
+}
+
+.chart-bar {
+    min-width: 3px;
+    height: 100%;
+    background-color: #2563eb;
+    border-radius: 4px;
+}
+
+@media (max-width: 480px) {
+    .chart-row {
+        grid-template-columns: 82px minmax(0, 1fr) 72px;
+        gap: 8px;
+    }
+
+    .chart-label,
+    .chart-value {
+        font-size: 0.8rem;
+    }
 }
 
 #data-table {
